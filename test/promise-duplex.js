@@ -91,7 +91,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseDuplex.onceEnd()
+      this.promise = this.promiseDuplex.once('end')
     })
 
     When('data event is emitted', () => {
@@ -106,7 +106,7 @@ Feature('Test promise-duplex module', () => {
       this.stream.emit('end')
     })
 
-    Then('promise returns no result', () => {
+    Then('promise returns null', () => {
       return this.promise.should.eventually.be.null
     })
   })
@@ -192,7 +192,7 @@ Feature('Test promise-duplex module', () => {
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex['once' + capitalize(event)]()
+        this.promise = this.promiseDuplex.once(event)
       })
 
       When(`${event} event is emitted`, () => {
@@ -214,19 +214,19 @@ Feature('Test promise-duplex module', () => {
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex['once' + capitalize(event)]()
+        this.promise = this.promiseDuplex.once(event)
       })
 
       When('finish event is emitted', () => {
         this.stream.emit('finish')
       })
 
-      Then('promise is rejected', () => {
-        return this.promise.should.be.rejectedWith(Error, `once ${event} after end`)
+      Then('promise returns null', () => {
+        return this.promise.should.eventually.be.null
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex['once' + capitalize(event)]()
+        this.promise = this.promiseDuplex.once(event)
       })
 
       Then('promise is rejected', () => {
@@ -244,7 +244,7 @@ Feature('Test promise-duplex module', () => {
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex['once' + capitalize(event)]()
+        this.promise = this.promiseDuplex.once(event)
       })
 
       When('error event is emitted', () => {
@@ -268,7 +268,7 @@ Feature('Test promise-duplex module', () => {
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex['once' + capitalize(event)]()
+        this.promise = this.promiseDuplex.once(event)
       })
 
       When('finish event is emitted', () => {
@@ -281,7 +281,3 @@ Feature('Test promise-duplex module', () => {
     })
   }
 })
-
-function capitalize (string) {
-  return string[0].toUpperCase() + string.slice(1)
-}
