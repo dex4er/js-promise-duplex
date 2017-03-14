@@ -23,6 +23,8 @@ npm install promise-duplex
 
 ### Usage
 
+#### constructor(stream)
+
 `PromiseDuplex` object requires `Duplex` object to work:
 
 ```js
@@ -39,68 +41,42 @@ Original stream is available with `stream` property:
 console.log(promiseDstream.stream.localAddress)
 ```
 
-#### read
+#### read([chunkSize])
 
 Check
-[`PromiseReadable.read`](https://www.npmjs.com/package/promise-readable#read)
+[`PromiseReadable.read`](https://www.npmjs.com/package/promise-readable#readchunksize)
 for details.
 
-#### readAll
+#### readAll()
 
 Check
 [`PromiseReadable.readAll`](https://www.npmjs.com/package/promise-readable#readall)
 for details.
 
-#### write
+#### write(chunk)
 
 Check
-[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#write)
+[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#writechunk)
 for details.
 
-#### writeAll
+#### writeAll(data, [chunkSize])
 
 Check
-[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writeall)
+[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writealldata)
 for details.
 
-#### end
+#### end()
 
 Check
 [`PromiseWritable.end`](https://www.npmjs.com/package/promise-writable#end)
 for details.
 
-#### onceOpen
+#### once(event)
 
 Check
-[`PromiseReadable.onceOpen`](https://www.npmjs.com/package/promise-readable#onceopen)
+[`PromiseReadable.once`](https://www.npmjs.com/package/promise-readable#onceevent)
 and
-[`PromiseWritable.onceOpen`](https://www.npmjs.com/package/promise-writable#onceopen)
-for details.
-
-#### onceClose
-
-Check
-[`PromiseReadable.onceClose`](https://www.npmjs.com/package/promise-readable#onceclose)
-and
-[`PromiseWritable.onceClose`](https://www.npmjs.com/package/promise-writable#onceclose)
-for details.
-
-#### oncePipe
-
-Check
-[`PromiseWritable.onceEnd`](https://www.npmjs.com/package/promise-writable#oncepipe)
-for details.
-
-#### onceUnpipe
-
-Check
-[`PromiseWritable.onceUnpipe`](https://www.npmjs.com/package/promise-writable#onceunpipe)
-for details.
-
-#### onceEnd
-
-Check
-[`PromiseReadable.onceEnd`](https://www.npmjs.com/package/promise-readable#onceend)
+[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#onceevent)
 for details.
 
 ### Promise
