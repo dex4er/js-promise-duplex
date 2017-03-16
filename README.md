@@ -92,7 +92,7 @@ await promiseDuplex.writeAll(content, chunkSize)
 ```
 
 Check
-[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#writeall)
+[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writeall)
 for details.
 
 #### end
