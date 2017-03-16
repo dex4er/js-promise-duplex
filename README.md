@@ -23,60 +23,98 @@ npm install promise-duplex
 
 ### Usage
 
-#### constructor(stream)
+#### constructor
 
-`PromiseDuplex` object requires `Duplex` object to work:
+```js
+const promiseDuplex = new PromiseDuplex(stream)
+```
+
+`PromiseDuplex` object requires `Duplex` object to work.
+
+_Example:_
 
 ```js
 const PromiseDuplex = require('promise-duplex')
 
-const dstream = new net.Socket()
+const stream = new net.Socket()
 
-const promiseDstream = new PromiseDuplex(dstream)
+const promiseDuplex = new PromiseDuplex(stream)
 ```
 
-Original stream is available with `stream` property:
+#### stream
 
 ```js
-console.log(promiseDstream.stream.localAddress)
+const stream = promiseDuplex.stream
 ```
 
-#### read([chunkSize])
+Original stream object.
+
+_Example:_
+
+```js
+console.log(promiseDuplex.stream.localAddress)
+```
+
+#### read
+
+```js
+const chunk = await promiseDuplex.read(chunkSize)
+```
 
 Check
-[`PromiseReadable.read`](https://www.npmjs.com/package/promise-readable#readchunksize)
+[`PromiseReadable.read`](https://www.npmjs.com/package/promise-readable#read)
 for details.
 
-#### readAll()
+#### readAll
+
+```js
+const content = await promiseDuplex.readAll()
+```
 
 Check
 [`PromiseReadable.readAll`](https://www.npmjs.com/package/promise-readable#readall)
 for details.
 
-#### write(chunk)
+#### write
+
+```js
+await promiseDuplex.write(chunk)
+```
 
 Check
-[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#writechunk)
+[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#write)
 for details.
 
-#### writeAll(data, [chunkSize])
+#### writeAll
+
+```js
+await promiseDuplex.writeAll(content, chunkSize)
+```
 
 Check
-[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writealldata)
+[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#writeall)
 for details.
 
-#### end()
+#### end
+
+```js
+await promiseDuplex.end()
+```
 
 Check
-[`PromiseWritable.end`](https://www.npmjs.com/package/promise-writable#end)
+[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#end)
 for details.
 
-#### once(event)
+#### once
+
+```js
+const result = await promiseDuplex.once(event)
+```
 
 Check
-[`PromiseReadable.once`](https://www.npmjs.com/package/promise-readable#onceevent)
+[`PromiseReadable.once`](https://www.npmjs.com/package/promise-readable#once)
 and
-[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#onceevent)
+[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#once)
 for details.
 
 ### Promise
