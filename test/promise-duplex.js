@@ -26,7 +26,7 @@ Feature('Test promise-duplex module', () => {
       this._buffer = Buffer.concat([this._buffer, chunk])
       return !chunk.toString().startsWith('pause')
     }
-    end () { }
+    end () {}
   }
 
   Scenario('Read chunks from stream', function () {
