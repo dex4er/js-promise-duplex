@@ -28,254 +28,294 @@ Feature('Test promise-duplex module', () => {
     end () {}
   }
 
-  Scenario('Read chunks from stream', function () {
+  Scenario('Read chunks from stream', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call read method', () => {
-      this.promise = this.promiseDuplex.read()
+      promise = promiseDuplex.read()
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns chunk', () => {
-      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1'))
+      return promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
   })
 
-  Scenario('Read all from stream', function () {
+  Scenario('Read all from stream', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call readAll method', () => {
-      this.promise = this.promiseDuplex.readAll()
+      promise = promiseDuplex.readAll()
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns all chunks in one buffer', () => {
-      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
+      return promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
     })
   })
 
-  Scenario('Wait for end from stream', function () {
+  Scenario('Wait for end from stream', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseDuplex.once('end')
+      promise = promiseDuplex.once('end')
     })
 
-    When('data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk1'))
+    And('data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk1'))
     })
 
-    When('another data event is emitted', () => {
-      this.stream.emit('data', Buffer.from('chunk2'))
+    And('another data event is emitted', () => {
+      stream.emit('data', Buffer.from('chunk2'))
     })
 
-    When('close event is emitted', () => {
-      this.stream.emit('end')
+    And('close event is emitted', () => {
+      stream.emit('end')
     })
 
     Then('promise returns null', () => {
-      return this.promise.should.eventually.be.null
+      return promise.should.eventually.be.null
     })
   })
 
-  Scenario('Write chunks to stream which doesn not pause', function () {
+  Scenario('Write chunks to stream which doesn not pause', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call write method', () => {
-      this.promise = this.promiseDuplex.write(Buffer.from('chunk1'))
+      promise = promiseDuplex.write(Buffer.from('chunk1'))
     })
 
     Then('promise is fulfilled', () => {
-      return this.promise.should.be.fulfilled.and.ok
+      return promise.should.be.fulfilled.and.ok
     })
 
-    Then('stream should contain this chunk', () => {
-      this.stream._buffer.should.deep.equal(Buffer.from('chunk1'))
+    And('stream should contain this chunk', () => {
+      stream._buffer.should.deep.equal(Buffer.from('chunk1'))
     })
   })
 
-  Scenario('Write all in one chunk', function () {
+  Scenario('Write all in one chunk', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call writeAll method', () => {
-      this.promise = this.promiseDuplex.writeAll(Buffer.from('chunk1chunk2chunk3'))
+      promise = promiseDuplex.writeAll(Buffer.from('chunk1chunk2chunk3'))
     })
 
-    When('finish event is emitted', () => {
-      this.stream.emit('finish')
+    And('finish event is emitted', () => {
+      stream.emit('finish')
     })
 
     Then('promise is fulfilled', () => {
-      return this.promise.should.be.fulfilled.and.ok
+      return promise.should.be.fulfilled.and.ok
     })
 
-    Then('stream should contain this chunk', () => {
-      this.stream._buffer.should.deep.equal(Buffer.from('chunk1chunk2chunk3'))
+    And('stream should contain this chunk', () => {
+      stream._buffer.should.deep.equal(Buffer.from('chunk1chunk2chunk3'))
     })
   })
 
-  Scenario('End the stream', function () {
+  Scenario('End the stream', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
     Given('Duplex object', () => {
-      this.stream = new MockStream()
+      stream = new MockStream()
     })
 
-    Given('PromiseDuplex object', () => {
-      this.promiseDuplex = new PromiseDuplex(this.stream)
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
     })
 
     When('I call end method', () => {
-      this.promise = this.promiseDuplex.end()
+      promise = promiseDuplex.end()
     })
 
-    When('finish event is emitted', () => {
-      this.stream.emit('finish')
+    And('finish event is emitted', () => {
+      stream.emit('finish')
     })
 
     Then('promise is fulfilled', () => {
-      return this.promise.should.be.fulfilled.and.ok
+      return promise.should.be.fulfilled.and.ok
     })
   })
 
   for (const event of ['open', 'close', 'pipe', 'unpipe']) {
-    Scenario(`Wait for ${event} from stream`, function () {
+    Scenario(`Wait for ${event} from stream`, () => {
+      let promise
+      let promiseDuplex
+      let stream
+
       Given('Duplex object', () => {
-        this.stream = new MockStream()
+        stream = new MockStream()
       })
 
-      Given('PromiseDuplex object', () => {
-        this.promiseDuplex = new PromiseDuplex(this.stream)
+      And('PromiseDuplex object', () => {
+        promiseDuplex = new PromiseDuplex(stream)
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex.once(event)
+        promise = promiseDuplex.once(event)
       })
 
-      When(`${event} event is emitted`, () => {
-        this.stream.emit(event, 'result')
+      And(`${event} event is emitted`, () => {
+        stream.emit(event, 'result')
       })
 
       Then('promise is fulfilled', () => {
-        return this.promise.should.eventually.equal('result')
+        return promise.should.eventually.equal('result')
       })
     })
 
-    Scenario(`Wait for ${event} from finished stream`, function () {
+    Scenario(`Wait for ${event} from finished stream`, () => {
+      let promise
+      let promiseDuplex
+      let stream
+
       Given('Duplex object', () => {
-        this.stream = new MockStream()
+        stream = new MockStream()
       })
 
-      Given('PromiseDuplex object', () => {
-        this.promiseDuplex = new PromiseDuplex(this.stream)
+      And('PromiseDuplex object', () => {
+        promiseDuplex = new PromiseDuplex(stream)
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex.once(event)
+        promise = promiseDuplex.once(event)
       })
 
-      When('finish event is emitted', () => {
-        this.stream.emit('finish')
+      And('finish event is emitted', () => {
+        stream.emit('finish')
       })
 
       Then('promise returns null', () => {
-        return this.promise.should.eventually.be.null
+        return promise.should.eventually.be.null
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex.once(event)
+        promise = promiseDuplex.once(event)
       })
 
       Then('promise is rejected', () => {
-        return this.promise.should.be.rejectedWith(Error, `once ${event} after end`)
+        return promise.should.be.rejectedWith(Error, `once ${event} after end`)
       })
     })
 
-    Scenario(`Wait for ${event} from stream with error`, function () {
+    Scenario(`Wait for ${event} from stream with error`, () => {
+      let promise
+      let promiseDuplex
+      let stream
+
       Given('Duplex object', () => {
-        this.stream = new MockStream()
+        stream = new MockStream()
       })
 
-      Given('PromiseDuplex object', () => {
-        this.promiseDuplex = new PromiseDuplex(this.stream)
+      And('PromiseDuplex object', () => {
+        promiseDuplex = new PromiseDuplex(stream)
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex.once(event)
+        promise = promiseDuplex.once(event)
       })
 
-      When('error event is emitted', () => {
-        this.stream.emit('error', new Error('boom'))
+      And('error event is emitted', () => {
+        stream.emit('error', new Error('boom'))
       })
 
       Then('promise is rejected', () => {
-        return this.promise.should.be.rejectedWith(Error, 'boom')
+        return promise.should.be.rejectedWith(Error, 'boom')
       })
     })
   }
 
   for (const event of ['open', 'close']) {
-    Scenario(`Wait for ${event} from ended stream`, function () {
+    Scenario(`Wait for ${event} from ended stream`, () => {
+      let promise
+      let promiseDuplex
+      let stream
+
       Given('Duplex object', () => {
-        this.stream = new MockStream()
+        stream = new MockStream()
       })
 
-      Given('PromiseDuplex object', () => {
-        this.promiseDuplex = new PromiseDuplex(this.stream)
+      And('PromiseDuplex object', () => {
+        promiseDuplex = new PromiseDuplex(stream)
       })
 
       When(`I call ${event} method`, () => {
-        this.promise = this.promiseDuplex.once(event)
+        promise = promiseDuplex.once(event)
       })
 
-      When('finish event is emitted', () => {
-        this.stream.emit('end')
+      And('finish event is emitted', () => {
+        stream.emit('end')
       })
 
       Then('promise is rejected', () => {
-        return this.promise.should.eventually.be.null
+        return promise.should.eventually.be.null
       })
     })
   }
