@@ -1,6 +1,5 @@
 'use strict'
 
-/* global Feature, Scenario, Given, When, Then */
 const t = require('tap')
 require('tap-given')(t)
 
@@ -18,7 +17,7 @@ Feature('Test promise-duplex module', () => {
       super()
       this.readable = true
       this.writable = true
-      this._buffer = new Buffer(0)
+      this._buffer = Buffer.alloc(0)
     }
     pause () {}
     resume () {}
@@ -43,11 +42,11 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     Then('promise returns chunk', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk1'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
   })
 
@@ -65,11 +64,11 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     When('close event is emitted', () => {
@@ -77,7 +76,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     Then('promise returns all chunks in one buffer', () => {
-      return this.promise.should.eventually.deep.equal(new Buffer('chunk1chunk2'))
+      return this.promise.should.eventually.deep.equal(Buffer.from('chunk1chunk2'))
     })
   })
 
@@ -95,11 +94,11 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk1'))
+      this.stream.emit('data', Buffer.from('chunk1'))
     })
 
     When('another data event is emitted', () => {
-      this.stream.emit('data', new Buffer('chunk2'))
+      this.stream.emit('data', Buffer.from('chunk2'))
     })
 
     When('close event is emitted', () => {
@@ -121,7 +120,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('I call write method', () => {
-      this.promise = this.promiseDuplex.write(new Buffer('chunk1'))
+      this.promise = this.promiseDuplex.write(Buffer.from('chunk1'))
     })
 
     Then('promise is fulfilled', () => {
@@ -129,7 +128,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     Then('stream should contain this chunk', () => {
-      this.stream._buffer.should.deep.equal(new Buffer('chunk1'))
+      this.stream._buffer.should.deep.equal(Buffer.from('chunk1'))
     })
   })
 
@@ -143,7 +142,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     When('I call writeAll method', () => {
-      this.promise = this.promiseDuplex.writeAll(new Buffer('chunk1chunk2chunk3'))
+      this.promise = this.promiseDuplex.writeAll(Buffer.from('chunk1chunk2chunk3'))
     })
 
     When('finish event is emitted', () => {
@@ -155,7 +154,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     Then('stream should contain this chunk', () => {
-      this.stream._buffer.should.deep.equal(new Buffer('chunk1chunk2chunk3'))
+      this.stream._buffer.should.deep.equal(Buffer.from('chunk1chunk2chunk3'))
     })
   })
 

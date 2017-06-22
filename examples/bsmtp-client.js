@@ -88,7 +88,7 @@ async function client (arg) {
     }
 
     // input has EOL removed so CRLF has to be added
-    await socket.write(Buffer.concat([wchunk, new Buffer('\x0d\x0a')]))
+    await socket.write(Buffer.concat([wchunk, Buffer.from('\x0d\x0a')]))
   }
 
   socket.end()
