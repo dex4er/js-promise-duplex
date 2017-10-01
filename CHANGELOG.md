@@ -3,6 +3,8 @@
 ## v1.0.0 2017-01-10
 
   * Exports also as a class and namespace and the default.
+  * Typings for Typescript.
+  * Based on promise-readable@1.x.x and promise-writable@1.x.x
 
 ## v0.1.2 2017-06-22
 

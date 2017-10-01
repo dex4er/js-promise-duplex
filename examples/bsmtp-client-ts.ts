@@ -29,22 +29,23 @@ S: ^D
 
 */
 
-const { PromiseReadable } = require('promise-readable')
-const { PromiseWritable } = require('promise-writable')
-const { PromiseDuplex } = require('../lib/promise-duplex')
+import { PromiseReadable } from 'promise-readable'
+import { PromiseWritable } from 'promise-writable'
+import { PromiseDuplex } from '../lib/promise-duplex'
 
-const net = require('net')
-const byline = require('byline')
+import * as net from 'net'
+
+import byline = require('byline')
 
 const [host = 'localhost', port = '25'] = process.argv.slice(2, 4)
 
-const psocket = new PromiseDuplex(new net.Socket())
-const pstdin = new PromiseReadable(byline(process.stdin, {keepEmptyLines: true}))
-const pstdout = new PromiseWritable(process.stdout)
+const socket = new PromiseDuplex(new net.Socket())
+const stdin = new PromiseReadable(byline(process.stdin, { keepEmptyLines: true }))
+const stdout = new PromiseWritable(process.stdout)
 
-psocket.stream.connect(port, host, client)
+socket.stream.connect(Number(port), host, client)
 
-async function client (arg) {
+async function client (arg: any): Promise<void> {
   try {
     // which line for DATA command?
     let dataLine = 0
@@ -52,27 +53,27 @@ async function client (arg) {
     while (1) {
       // if it is not line for DATA command then read line from server
       if (dataLine < 2) {
-        await pstdout.write('S: ')
+        await stdout.write('S: ')
 
-        const rchunk = await psocket.read()
+        const rchunk = await socket.read()
         // is it EOF?
-        if (rchunk == null) break
+        if (!rchunk) break
 
-        await pstdout.write(rchunk)
+        await stdout.write(rchunk)
 
         // if this is another line in DATA command
         if (dataLine) dataLine++
       }
 
-      await pstdout.write('C: ')
+      await stdout.write('C: ')
 
-      const wchunk = await pstdin.read()
+      const wchunk = await stdin.read()
       // is it EOF?
-      if (wchunk == null) break
+      if (!wchunk) break
 
       // echo if was not terminal
       if (!process.stdin.isTTY) {
-        await pstdout.write(wchunk + '\n')
+        await stdout.write(wchunk + '\n')
       }
 
       if (wchunk.toString().toUpperCase() === 'DATA') {
@@ -82,10 +83,10 @@ async function client (arg) {
       }
 
       // input has EOL removed so CRLF has to be added
-      await psocket.write(Buffer.concat([wchunk, Buffer.from('\x0d\x0a')]))
+      await socket.write(Buffer.concat([wchunk, Buffer.from('\x0d\x0a')]))
     }
 
-    psocket.end()
+    await socket.end()
   } catch (e) {
     console.error(e)
   }
