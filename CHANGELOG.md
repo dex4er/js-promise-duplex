@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.0.0 2017-01-10
+
 ## v0.1.2 2017-06-22
 
   * Upgraded chai@4.0.2, chai-as-promised@7.0.0, promise-readable@0.4.3,
