@@ -2,10 +2,10 @@ import { PromiseReadable } from 'promise-readable'
 import { PromiseWritable } from 'promise-writable'
 import { Duplex } from 'stream'
 
-export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadable implements PromiseWritable {
+export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadable<TDuplex> implements PromiseWritable<TDuplex> {
   readonly stream: TDuplex
-  readonly readable: PromiseReadable
-  readonly writable: PromiseWritable
+  readonly readable: PromiseReadable<TDuplex>
+  readonly writable: PromiseWritable<TDuplex>
 
   constructor (stream: TDuplex)
 
