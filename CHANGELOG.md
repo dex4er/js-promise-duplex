@@ -6,6 +6,12 @@
   * Typings for Typescript.
   * Based on promise-readable@1.x.x and promise-writable@1.x.x
 
+  _Breaking change:_
+
+  * Resolves to `undefined` rather than `null` if there is no data or stream is
+    closed. Please use double sign equality instead triple sign to check if
+    stream is closed, ie. `data == null`.
+
 ## v0.1.2 2017-06-22
 
   * Upgraded chai@4.0.2, chai-as-promised@7.0.0, promise-readable@0.4.3,

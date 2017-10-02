@@ -117,8 +117,8 @@ Feature('Test promise-duplex module', () => {
       stream.emit('end')
     })
 
-    Then('promise returns null', () => {
-      return promise.should.eventually.be.null
+    Then('promise returns undefined', () => {
+      return promise.should.eventually.be.undefined
     })
   })
 
@@ -252,8 +252,8 @@ Feature('Test promise-duplex module', () => {
         stream.emit('finish')
       })
 
-      Then('promise returns null', () => {
-        return promise.should.eventually.be.null
+      Then('promise returns undefined', () => {
+        return promise.should.eventually.be.undefined
       })
 
       When(`I call ${event} method`, () => {
@@ -314,8 +314,8 @@ Feature('Test promise-duplex module', () => {
         stream.emit('end')
       })
 
-      Then('promise is rejected', () => {
-        return promise.should.eventually.be.null
+      Then('promise returns undefined', () => {
+        return promise.should.eventually.be.undefined
       })
     })
   }
