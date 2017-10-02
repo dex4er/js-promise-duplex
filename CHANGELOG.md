@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.0.0 2017-01-10
+## v1.0.0 2017-10-02
 
   * Exports also as a class and namespace and the default.
   * Typings for Typescript.
