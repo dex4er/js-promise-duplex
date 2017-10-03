@@ -1,3 +1,5 @@
+#!/usr/bin/env ts-node
+
 /*
 
 This is an implementation of BSMTP (Batch Simple Mail Transfer Protocol) client
