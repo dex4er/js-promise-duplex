@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1.1 2017-10-03
+
+  * Better README.
+
 ## v1.1.0 2017-10-03
 
   * `once` is resolved to `undefined` when stream is already closed or

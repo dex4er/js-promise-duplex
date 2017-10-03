@@ -34,7 +34,19 @@ const promiseDuplex = new PromiseDuplex(stream)
 _Example:_
 
 ```js
-const PromiseDuplex = require('promise-duplex')
+const net = require('net')
+const { PromiseDuplex } = require('promise-duplex')
+
+const stream = new net.Socket()
+
+const promiseDuplex = new PromiseDuplex(stream)
+```
+
+_Typescript:_
+
+```js
+import * as net from 'net'
+import { PromiseDuplex } from 'promise-duplex'
 
 const stream = new net.Socket()
 
