@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1.0 2017-10-03
+
+  * `once` is resolved to `undefined` when stream is already closed or
+    destroyed for `"close"` or `"end"` events and rejects for others.
+  * `read` and `readAll` is resolved when `"close"` event was occured.
+
 ## v1.0.0 2017-10-02
 
   * Exports also as a class and namespace and the default.

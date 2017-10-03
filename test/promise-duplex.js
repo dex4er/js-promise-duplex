@@ -19,6 +19,8 @@ Feature('Test promise-duplex module', () => {
       this.writable = true
       this._buffer = Buffer.alloc(0)
     }
+    close () { this.closed = true }
+    destroy () { this.destoyed = true }
     pause () {}
     resume () {}
     write (chunk) {
@@ -218,20 +220,26 @@ Feature('Test promise-duplex module', () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
-      When(`I call ${event} method`, () => {
+      When(`I call once('${event}') method`, () => {
         promise = promiseDuplex.once(event)
       })
 
       And(`${event} event is emitted`, () => {
-        stream.emit(event, 'result')
+        stream.emit(event)
       })
 
-      Then('promise is fulfilled', () => {
-        return promise.should.eventually.equal('result')
-      })
+      if (event !== 'finish') {
+        Then('promise is fulfilled', () => {
+          return promise.should.be.fulfilled
+        })
+      } else {
+        Then('promise returns undefined', () => {
+          return promise.should.eventually.be.undefined
+        })
+      }
     })
 
-    Scenario(`Wait for ${event} from finished stream`, () => {
+    Scenario(`Wait for ${event} from closed stream`, () => {
       let promise
       let promiseDuplex
       let stream
@@ -244,25 +252,23 @@ Feature('Test promise-duplex module', () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
-      When(`I call ${event} method`, () => {
+      When('stream is closed', () => {
+        stream.close()
+      })
+
+      And(`I call once('${event}') method`, () => {
         promise = promiseDuplex.once(event)
       })
 
-      And('finish event is emitted', () => {
-        stream.emit('finish')
-      })
-
-      Then('promise returns undefined', () => {
-        return promise.should.eventually.be.undefined
-      })
-
-      When(`I call ${event} method`, () => {
-        promise = promiseDuplex.once(event)
-      })
-
-      Then('promise is rejected', () => {
-        return promise.should.be.rejectedWith(Error, `once ${event} after end`)
-      })
+      if (event === 'close') {
+        Then('promise returns undefined', () => {
+          return promise.should.eventually.be.undefined
+        })
+      } else {
+        Then('promise is rejected', () => {
+          return promise.should.be.rejectedWith(Error, `once ${event} after close`)
+        })
+      }
     })
 
     Scenario(`Wait for ${event} from stream with error`, () => {
@@ -288,34 +294,6 @@ Feature('Test promise-duplex module', () => {
 
       Then('promise is rejected', () => {
         return promise.should.be.rejectedWith(Error, 'boom')
-      })
-    })
-  }
-
-  for (const event of ['open', 'close']) {
-    Scenario(`Wait for ${event} from ended stream`, () => {
-      let promise
-      let promiseDuplex
-      let stream
-
-      Given('Duplex object', () => {
-        stream = new MockStream()
-      })
-
-      And('PromiseDuplex object', () => {
-        promiseDuplex = new PromiseDuplex(stream)
-      })
-
-      When(`I call ${event} method`, () => {
-        promise = promiseDuplex.once(event)
-      })
-
-      And('finish event is emitted', () => {
-        stream.emit('end')
-      })
-
-      Then('promise returns undefined', () => {
-        return promise.should.eventually.be.undefined
       })
     })
   }
