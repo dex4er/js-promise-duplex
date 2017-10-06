@@ -9,8 +9,8 @@ chai.use(chaiAsPromised)
 chai.should()
 
 Feature('Test promise-duplex module', () => {
-  const PromiseDuplex = require('../lib/promise-duplex')
-  const EventEmitter = require('events')
+  const PromiseDuplex = require('../lib/promise-duplex').PromiseDuplex
+  const EventEmitter = require('events').EventEmitter
 
   class MockStream extends EventEmitter {
     constructor () {
