@@ -1,8 +1,10 @@
+/// <reference types="node" />
+
 import { PromiseReadable } from 'promise-readable'
 import { PromiseWritable } from 'promise-writable'
-import { Duplex } from 'stream'
+import * as stream from 'stream'
 
-export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadable<TDuplex> implements PromiseWritable<TDuplex> {
+export declare class PromiseDuplex<TDuplex extends stream.Duplex> extends PromiseReadable<TDuplex> implements PromiseWritable<TDuplex> {
   readonly stream: TDuplex
   readonly readable: PromiseReadable<TDuplex>
   readonly writable: PromiseWritable<TDuplex>
