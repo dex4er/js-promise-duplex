@@ -38,7 +38,8 @@ const { PromiseDuplex } = require('../lib/promise-duplex')
 const net = require('net')
 const byline = require('byline')
 
-const [host = 'localhost', port = '25'] = process.argv.slice(2, 4)
+const host = process.argv[2] || 'localhost'
+const port = Number(process.argv[3]) || 25
 
 const psocket = new PromiseDuplex(new net.Socket())
 const pstdin = new PromiseReadable(byline(process.stdin, {keepEmptyLines: true}))
@@ -46,7 +47,7 @@ const pstdout = new PromiseWritable(process.stdout)
 
 psocket.stream.connect(port, host, client)
 
-async function client (arg) {
+async function client () {
   try {
     // which line for DATA command?
     let dataLine = 0

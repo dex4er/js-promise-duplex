@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.2 2017-10-10
+
+  * Typescript: `once('pipe' | 'unpipe')` resolves to `Readable`.
+
 ## v2.0.1 2017-10-06
 
   * Do not use UMD import internally.

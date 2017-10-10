@@ -1,6 +1,6 @@
 {
   "name": "promise-duplex",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Return promise for duplex stream",
   "main": "lib/promise-duplex.js",
   "typings": "lib/promise-duplex.d.ts",
@@ -23,12 +23,12 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "promise-readable": "^2.0.0",
-    "promise-writable": "^2.0.1"
+    "promise-readable": "^2.1.0",
+    "promise-writable": "^2.1.1"
   },
   "devDependencies": {
     "@types/byline": "^4.2.31",
-    "@types/node": "^8.0.33",
+    "@types/node": "^8.0.34",
     "byline": "^5.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",

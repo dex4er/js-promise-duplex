@@ -39,15 +39,16 @@ import * as net from 'net'
 
 import byline = require('byline')
 
-const [host = 'localhost', port = '25'] = process.argv.slice(2, 4)
+const host = process.argv[2] || 'localhost'
+const port = Number(process.argv[3]) || 25
 
 const socket = new PromiseDuplex(new net.Socket())
 const stdin = new PromiseReadable(byline(process.stdin, { keepEmptyLines: true }))
 const stdout = new PromiseWritable(process.stdout)
 
-socket.stream.connect(Number(port), host, client)
+socket.stream.connect(port, host, client)
 
-async function client (arg: any): Promise<void> {
+async function client (): Promise<void> {
   try {
     // which line for DATA command?
     let dataLine = 0
