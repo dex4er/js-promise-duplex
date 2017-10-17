@@ -44,7 +44,7 @@ const port = Number(process.argv[3]) || 25
 
 const socket = new PromiseDuplex(new net.Socket())
 const stdin = new PromiseReadable(byline(process.stdin, { keepEmptyLines: true }))
-const stdout = new PromiseWritable(process.stdout)
+const stdout = new PromiseWritable(process.stdout as NodeJS.WritableStream)
 
 socket.stream.connect(port, host, client)
 

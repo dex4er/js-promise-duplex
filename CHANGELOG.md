@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.0.3 2017-10-17
+
+  * Workaround for bug in @types/node. See
+    https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20493
+
 ## v2.0.2 2017-10-10
 
   * Typescript: `once('pipe' | 'unpipe')` resolves to `Readable`.
