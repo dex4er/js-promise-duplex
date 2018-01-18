@@ -1,5 +1,9 @@
 # Changelog
 
+## v2.0.4 2018-01-18
+
+  * Upgraded promise-readable@2.1.1
+
 ## v2.0.3 2017-10-17
 
   * Workaround for bug in @types/node. See
