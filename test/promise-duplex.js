@@ -8,28 +8,65 @@ const chaiAsPromised = require('chai-as-promised')
 chai.use(chaiAsPromised)
 chai.should()
 
-Feature('Test promise-duplex module', () => {
-  const PromiseDuplex = require('../lib/promise-duplex').PromiseDuplex
-  const EventEmitter = require('events').EventEmitter
+const EventEmitter = require('events').EventEmitter
 
-  class MockStream extends EventEmitter {
-    constructor () {
-      super()
-      this.readable = true
-      this.writable = true
-      this._buffer = Buffer.alloc(0)
-    }
-    close () { this.closed = true }
-    destroy () { this.destoyed = true }
-    pause () {}
-    resume () {}
-    write (chunk) {
-      this._buffer = Buffer.concat([this._buffer, chunk])
-      return !chunk.toString().startsWith('pause')
-    }
-    end () {}
+const PromiseDuplex = require('../lib/promise-duplex').PromiseDuplex
+
+class MockStream extends EventEmitter {
+  constructor () {
+    super()
+    this.readable = true
+    this.paused = false
+    this.writable = true
+    this._readBuffer = Buffer.alloc(0)
+    this._writeBuffer = Buffer.alloc(0)
+    this._ended = false
   }
+  close () {
+    this.closed = true
+  }
+  destroy () {
+    this.destoyed = true
+  }
+  pause () {
+    this.paused = true
+  }
+  resume () {
+    this.paused = false
+  }
+  read (size) {
+    size = size || 1024
+    if (this._error) {
+      this.emit('error', this._error)
+      return null
+    }
+    if (this._readBuffer.length === 0) {
+      if (!this._ended) {
+        this._ended = true
+        this.emit('end')
+      }
+      return null
+    }
+    const chunk = this._readBuffer.slice(0, size)
+    this._readBuffer = this._readBuffer.slice(size)
+    return chunk
+  }
+  write (chunk) {
+    this._writeBuffer = Buffer.concat([this._writeBuffer, chunk])
+    return !chunk.toString().startsWith('pause')
+  }
+  end () {}
+  cork () {}
+  uncork () {}
+  _append (chunk) {
+    this._readBuffer = Buffer.concat([this._readBuffer, chunk])
+  }
+  _setError (e) {
+    this._error = e
+  }
+}
 
+Feature('Test promise-duplex module', () => {
   Scenario('Read chunks from stream', () => {
     let promise
     let promiseDuplex
@@ -43,12 +80,12 @@ Feature('Test promise-duplex module', () => {
       promiseDuplex = new PromiseDuplex(stream)
     })
 
-    When('I call read method', () => {
-      promise = promiseDuplex.read()
+    When('stream contains some data', () => {
+      stream._append(Buffer.from('chunk1'))
     })
 
-    And('data event is emitted', () => {
-      stream.emit('data', Buffer.from('chunk1'))
+    And('I call read method', () => {
+      promise = promiseDuplex.read()
     })
 
     Then('promise returns chunk', () => {
@@ -74,11 +111,15 @@ Feature('Test promise-duplex module', () => {
     })
 
     And('data event is emitted', () => {
-      stream.emit('data', Buffer.from('chunk1'))
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk1'))
+      }
     })
 
     And('another data event is emitted', () => {
-      stream.emit('data', Buffer.from('chunk2'))
+      if (!stream.paused) {
+        stream.emit('data', Buffer.from('chunk2'))
+      }
     })
 
     And('close event is emitted', () => {
@@ -124,7 +165,7 @@ Feature('Test promise-duplex module', () => {
     })
   })
 
-  Scenario('Write chunks to stream which doesn not pause', () => {
+  Scenario('Write chunks to stream which does not pause', () => {
     let promise
     let promiseDuplex
     let stream
@@ -146,7 +187,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     And('stream should contain this chunk', () => {
-      stream._buffer.should.deep.equal(Buffer.from('chunk1'))
+      stream._writeBuffer.should.deep.equal(Buffer.from('chunk1'))
     })
   })
 
@@ -176,7 +217,7 @@ Feature('Test promise-duplex module', () => {
     })
 
     And('stream should contain this chunk', () => {
-      stream._buffer.should.deep.equal(Buffer.from('chunk1chunk2chunk3'))
+      stream._writeBuffer.should.deep.equal(Buffer.from('chunk1chunk2chunk3'))
     })
   })
 
