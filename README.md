@@ -88,6 +88,16 @@ Check
 [`PromiseReadable.readAll`](https://www.npmjs.com/package/promise-readable#readall)
 for details.
 
+#### setEncoding
+
+```js
+promiseDuplex = await promiseDuplex.setEncoding(encoding)
+```
+
+Check
+[`PromiseReadable.setEncoding`](https://www.npmjs.com/package/promise-readable#setencoding)
+for details.
+
 #### write
 
 ```js

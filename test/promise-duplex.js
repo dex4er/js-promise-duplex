@@ -49,7 +49,7 @@ class MockStream extends EventEmitter {
     }
     const chunk = this._readBuffer.slice(0, size)
     this._readBuffer = this._readBuffer.slice(size)
-    return chunk
+    return this.encoding ? chunk.toString(this.encoding) : chunk
   }
   write (chunk) {
     this._writeBuffer = Buffer.concat([this._writeBuffer, chunk])
@@ -58,6 +58,9 @@ class MockStream extends EventEmitter {
   end () {}
   cork () {}
   uncork () {}
+  setEncoding (encoding) {
+    this.encoding = encoding
+  }
   _append (chunk) {
     this._readBuffer = Buffer.concat([this._readBuffer, chunk])
   }
@@ -90,6 +93,40 @@ Feature('Test promise-duplex module', () => {
 
     Then('promise returns chunk', () => {
       return promise.should.eventually.deep.equal(Buffer.from('chunk1'))
+    })
+
+    And('stream can be destroyed', () => {
+      promiseDuplex.destroy()
+    })
+  })
+
+  Scenario('Read chunks from stream with encoding', () => {
+    let promise
+    let promiseDuplex
+    let stream
+
+    Given('Duplex object', () => {
+      stream = new MockStream()
+    })
+
+    And('PromiseDuplex object', () => {
+      promiseDuplex = new PromiseDuplex(stream)
+    })
+
+    When('stream contains some data', () => {
+      stream._append(Buffer.from('chunk1'))
+    })
+
+    And('I set encoding', () => {
+      promise = promiseDuplex.setEncoding('utf8')
+    })
+
+    And('I call read method', () => {
+      promise = promiseDuplex.read()
+    })
+
+    Then('promise returns chunk as string', () => {
+      return promise.should.eventually.deep.equal('chunk1')
     })
 
     And('stream can be destroyed', () => {

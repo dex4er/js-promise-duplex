@@ -14,6 +14,8 @@ export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadab
   read (size?: number): Promise<Buffer | undefined>
   readAll (): Promise<Buffer | undefined>
 
+  setEncoding (encoding: string): this
+
   write (chunk: string | Buffer, encoding?: string): Promise<number>
   writeAll (content: string | Buffer, chunkSize?: number): Promise<number>
 
