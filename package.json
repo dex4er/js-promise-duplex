@@ -23,18 +23,18 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "promise-readable": "^2.1.1",
-    "promise-writable": "^2.1.1"
+    "promise-readable": "^3.0.1",
+    "promise-writable": "^3.0.0"
   },
   "devDependencies": {
     "@types/byline": "^4.2.31",
-    "@types/node": "^9.3.0",
+    "@types/node": "^9.4.0",
     "byline": "^5.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3",
-    "tap": "^11.0.1",
+    "tap": "^11.1.0",
     "tap-given": "^0.6.0"
   },
   "scripts": {
