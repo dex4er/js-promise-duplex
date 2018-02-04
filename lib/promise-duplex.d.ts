@@ -22,6 +22,8 @@ export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadab
   once (event: 'pipe' | 'unpipe'): Promise<Readable>
 
   end (): Promise<void>
+
+  destroy (): void
 }
 
 export default PromiseDuplex

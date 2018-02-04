@@ -130,6 +130,14 @@ and
 [`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#once)
 for details.
 
+#### destroy
+
+```js
+promiseDuplex.destroy()
+```
+
+This method calls destroy method on stream and cleans up all own handlers.
+
 ### See also
 
 [`PromiseReadable`](https://www.npmjs.com/package/promise-readable),

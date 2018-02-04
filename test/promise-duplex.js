@@ -10,7 +10,7 @@ chai.should()
 
 const EventEmitter = require('events').EventEmitter
 
-const PromiseDuplex = require('../lib/promise-duplex').PromiseDuplex
+const PromiseDuplex = require('../lib/promise-duplex')
 
 class MockStream extends EventEmitter {
   constructor () {
@@ -90,6 +90,10 @@ Feature('Test promise-duplex module', () => {
 
     Then('promise returns chunk', () => {
       return promise.should.eventually.deep.equal(Buffer.from('chunk1'))
+    })
+
+    And('stream can be destroyed', () => {
+      promiseDuplex.destroy()
     })
   })
 
