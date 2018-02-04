@@ -3,8 +3,9 @@
 [![Build Status](https://secure.travis-ci.org/dex4er/js-promise-duplex.svg)](http://travis-ci.org/dex4er/js-promise-duplex) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-duplex/badge.svg)](https://coveralls.io/github/dex4er/js-promise-duplex) [![npm](https://img.shields.io/npm/v/promise-duplex.svg)](https://www.npmjs.com/package/promise-duplex)
 
 This module allows to convert
-[`Duplex`](https://nodejs.org/api/stream.html#stream_class_stream_duplex)
-stream into its promisified version, which returns [`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
+[`Duplex`](https://nodejs.org/api/stream.html#stream_class_stream_duplex) stream
+into its promisified version, which returns
+[`Promise`](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise)
 object fulfilled when stream's events occurred.
 
 The module combines
@@ -35,7 +36,7 @@ _Example:_
 
 ```js
 const net = require('net')
-const { PromiseDuplex } = require('promise-duplex')
+const PromiseDuplex = require('promise-duplex')
 
 const stream = new net.Socket()
 
@@ -45,8 +46,8 @@ const promiseDuplex = new PromiseDuplex(stream)
 _Typescript:_
 
 ```js
-import * as net from 'net'
-import { PromiseDuplex } from 'promise-duplex'
+import net from 'net'
+import PromiseDuplex from 'promise-duplex'
 
 const stream = new net.Socket()
 
@@ -128,6 +129,13 @@ Check
 and
 [`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#once)
 for details.
+
+### See also
+
+[`PromiseReadable`](https://www.npmjs.com/package/promise-readable),
+[`PromiseWritable`](https://www.npmjs.com/package/promise-writable),
+[`PromiseSocket`](https://www.npmjs.com/package/promise-socket),
+[`PromisePiping`](https://www.npmjs.com/package/promise-piping).
 
 ### License
 

@@ -1,7 +1,7 @@
 /// <reference types="node" />
 
-import { PromiseReadable } from 'promise-readable'
-import { PromiseWritable } from 'promise-writable'
+import PromiseReadable from 'promise-readable'
+import PromiseWritable from 'promise-writable'
 import { Readable, Duplex } from 'stream'
 
 export declare class PromiseDuplex<TDuplex extends Duplex> extends PromiseReadable<TDuplex> implements PromiseWritable<TDuplex> {

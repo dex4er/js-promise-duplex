@@ -23,22 +23,27 @@
     "node": ">=4.0.0"
   },
   "dependencies": {
-    "promise-readable": "^3.0.1",
-    "promise-writable": "^3.0.0"
+    "promise-readable": "^3.1.1",
+    "promise-writable": "^3.1.0"
   },
   "devDependencies": {
-    "@types/byline": "^4.2.31",
     "@types/node": "^9.4.0",
-    "byline": "^5.0.0",
+    "@types/ws": "^4.0.0",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "simple-websocket": "^6.0.0",
     "snazzy": "^7.0.0",
     "standard": "^10.0.3",
     "tap": "^11.1.0",
-    "tap-given": "^0.6.0"
+    "tap-given": "^0.6.0",
+    "tslint": "^5.9.1",
+    "tslint-config-standard": "^7.0.0",
+    "typescript": "^2.7.1",
+    "websocket-stream": "^5.1.1",
+    "ws": "^4.0.0"
   },
   "scripts": {
-    "pretest": "standard --verbose | snazzy",
+    "pretest": "standard --verbose | snazzy && tsc --noEmit --pretty && tslint -t stylish -p .",
     "test": "tap test/*.js",
     "test:coverage": "npm test -- --coverage",
     "test:onchange:lcovonly": "npm run -s test-coverage -- -R min --coverage-report lcovonly; onchange '**/*.js' -- npm run -s test-coverage -- -R min --coverage-report lcovonly",

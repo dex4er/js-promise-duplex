@@ -2,7 +2,7 @@
 
 ## v3.0.0 2018-02-04
 
-  *
+  * Support for `import PromiseDuplex from 'promise-duplex'` syntax.
 
 ## v2.0.4 2018-01-18
 
