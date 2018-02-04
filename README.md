@@ -131,6 +131,6 @@ for details.
 
 ### License
 
-Copyright (c) 2017 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

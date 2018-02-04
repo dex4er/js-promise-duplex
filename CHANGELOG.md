@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.0 2018-02-04
+
+  *
+
 ## v2.0.4 2018-01-18
 
   * Upgraded promise-readable@2.1.1
