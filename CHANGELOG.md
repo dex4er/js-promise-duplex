@@ -4,6 +4,8 @@
 
   * New `setEncoding` and `destroy` methods.
   * Support for `import PromiseDuplex from 'promise-duplex'` syntax.
+  * Bugfix when PromiseDuplex could ignore error event.
+  * Upgraded promise-readable@3.1.1 and promise-writable@3.1.0
 
 ## v2.0.4 2018-01-18
 

@@ -378,5 +378,31 @@ Feature('Test promise-duplex module', () => {
         return promise.should.be.rejectedWith(Error, 'boom')
       })
     })
+
+    Scenario(`Wait for ${event} from stream with error emitted before method`, () => {
+      let promise
+      let promiseDuplex
+      let stream
+
+      Given('Duplex object', () => {
+        stream = new MockStream()
+      })
+
+      And('PromiseDuplex object', () => {
+        promiseDuplex = new PromiseDuplex(stream)
+      })
+
+      And('error event is emitted', () => {
+        stream.emit('error', new Error('boom'))
+      })
+
+      When(`I call ${event} method`, () => {
+        promise = promiseDuplex.once(event)
+      })
+
+      Then('promise is rejected', () => {
+        return promise.should.be.rejectedWith(Error, 'boom')
+      })
+    })
   }
 })
