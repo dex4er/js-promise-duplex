@@ -95,7 +95,11 @@ Feature('Test promise-duplex module', () => {
       return promise.should.eventually.deep.equal(Buffer.from('chunk1'))
     })
 
-    And('stream can be destroyed', () => {
+    And('PromiseDuplex object can be destroyed', () => {
+      promiseDuplex.destroy()
+    })
+
+    And('PromiseDuplex object can be destroyed', () => {
       promiseDuplex.destroy()
     })
   })
@@ -376,6 +380,14 @@ Feature('Test promise-duplex module', () => {
 
       Then('promise is rejected', () => {
         return promise.should.be.rejectedWith(Error, 'boom')
+      })
+
+      And('PromiseDuplex object can be destroyed', () => {
+        promiseDuplex.destroy()
+      })
+
+      And('PromiseDuplex object can be destroyed', () => {
+        promiseDuplex.destroy()
       })
     })
 

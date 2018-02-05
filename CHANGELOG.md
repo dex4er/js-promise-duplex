@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.0.1 2018-02-05
+
+  * Can call `destroy` twice.
+
 ## v3.0.0 2018-02-04
 
   * New `setEncoding` and `destroy` methods.
