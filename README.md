@@ -1,6 +1,8 @@
-## promise-duplex
+# promise-duplex
 
+<!-- markdownlint-disable MD013 -->
 [![Build Status](https://secure.travis-ci.org/dex4er/js-promise-duplex.svg)](http://travis-ci.org/dex4er/js-promise-duplex) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-duplex/badge.svg)](https://coveralls.io/github/dex4er/js-promise-duplex) [![npm](https://img.shields.io/npm/v/promise-duplex.svg)](https://www.npmjs.com/package/promise-duplex)
+<!-- markdownlint-enable MD013 -->
 
 This module allows to convert
 [`Duplex`](https://nodejs.org/api/stream.html#stream_class_stream_duplex) stream
@@ -12,19 +14,19 @@ The module combines
 [`promise-readable`](https://www.npmjs.com/package/promise-readable) and
 [`promise-writable`](https://www.npmjs.com/package/promise-writable) in one.
 
-### Requirements
+## Requirements
 
 This module requires Node >= 4.
 
-### Installation
+## Installation
 
 ```shell
 npm install promise-duplex
 ```
 
-### Usage
+## Usage
 
-#### constructor
+### constructor
 
 ```js
 const promiseDuplex = new PromiseDuplex(stream)
@@ -54,7 +56,7 @@ const stream = new net.Socket()
 const promiseDuplex = new PromiseDuplex(stream)
 ```
 
-#### stream
+### stream
 
 ```js
 const stream = promiseDuplex.stream
@@ -68,7 +70,7 @@ _Example:_
 console.log(promiseDuplex.stream.localAddress)
 ```
 
-#### read
+### read
 
 ```js
 const chunk = await promiseDuplex.read(chunkSize)
@@ -78,7 +80,7 @@ Check
 [`PromiseReadable.read`](https://www.npmjs.com/package/promise-readable#read)
 for details.
 
-#### readAll
+### readAll
 
 ```js
 const content = await promiseDuplex.readAll()
@@ -88,7 +90,7 @@ Check
 [`PromiseReadable.readAll`](https://www.npmjs.com/package/promise-readable#readall)
 for details.
 
-#### setEncoding
+### setEncoding
 
 ```js
 promiseDuplex = await promiseDuplex.setEncoding(encoding)
@@ -98,7 +100,7 @@ Check
 [`PromiseReadable.setEncoding`](https://www.npmjs.com/package/promise-readable#setencoding)
 for details.
 
-#### write
+### write
 
 ```js
 await promiseDuplex.write(chunk)
@@ -108,7 +110,7 @@ Check
 [`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#write)
 for details.
 
-#### writeAll
+### writeAll
 
 ```js
 await promiseDuplex.writeAll(content, chunkSize)
@@ -118,7 +120,7 @@ Check
 [`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writeall)
 for details.
 
-#### end
+### end
 
 ```js
 await promiseDuplex.end()
@@ -128,7 +130,7 @@ Check
 [`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#end)
 for details.
 
-#### once
+### once
 
 ```js
 const result = await promiseDuplex.once(event)
@@ -140,7 +142,7 @@ and
 [`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#once)
 for details.
 
-#### destroy
+### destroy
 
 ```js
 promiseDuplex.destroy()
@@ -148,14 +150,14 @@ promiseDuplex.destroy()
 
 This method calls destroy method on stream and cleans up all own handlers.
 
-### See also
+## See also
 
 [`PromiseReadable`](https://www.npmjs.com/package/promise-readable),
 [`PromiseWritable`](https://www.npmjs.com/package/promise-writable),
 [`PromiseSocket`](https://www.npmjs.com/package/promise-socket),
 [`PromisePiping`](https://www.npmjs.com/package/promise-piping).
 
-### License
+## License
 
 Copyright (c) 2017-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
