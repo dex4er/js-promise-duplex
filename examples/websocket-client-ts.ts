@@ -2,8 +2,7 @@
 
 import PromiseDuplex from '../lib/promise-duplex'
 
-// tslint:disable:no-var-requires
-const SimpleWebsocket = require('simple-websocket')
+import SimpleWebsocket from 'simple-websocket'
 
 async function main (): Promise<void> {
   const ws = new PromiseDuplex(new SimpleWebsocket({ url: 'ws://echo.websocket.org', encoding: 'utf8' }))
