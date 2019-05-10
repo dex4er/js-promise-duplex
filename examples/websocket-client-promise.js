@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-const {PromiseDuplex} = require('../src/promise-duplex')
+const {PromiseDuplex} = require('../lib/promise-duplex')
 
 const SimpleWebsocket = require('simple-websocket')
 

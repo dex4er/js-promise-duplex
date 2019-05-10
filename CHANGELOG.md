@@ -1,5 +1,9 @@
 # Changelog
 
+## v4.0.1 2019-05-10
+
+* Fixed regression in `index.js`.
+
 ## v4.0.0 2019-05-10
 
 * Rewritten in Typescript.

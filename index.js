@@ -1,1 +1,1 @@
-module.exports = require('./src/promise-duplex')
+module.exports = require('./lib/promise-duplex')
