@@ -9,7 +9,7 @@ async function main() {
   const request = process.argv[2] || 'Hello, world!'
   await ws.write(request)
   const response = await ws.read()
-  console.info(response)
+  console.info(response.toString())
   await ws.end()
   ws.destroy()
 }
