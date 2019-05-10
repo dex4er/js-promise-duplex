@@ -1,9 +1,9 @@
 {
   "name": "promise-duplex",
-  "version": "3.0.3",
+  "version": "4.0.0",
   "description": "Return promise for duplex stream",
-  "main": "lib/promise-duplex.js",
-  "typings": "lib/promise-duplex.d.ts",
+  "main": "src/promise-duplex.js",
+  "typings": "src/promise-duplex.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/dex4er/js-promise-duplex"
@@ -20,46 +20,57 @@
   },
   "homepage": "http://github.com/dex4er/js-promise-duplex",
   "engines": {
-    "node": ">=4.0.0"
+    "node": ">=6.0.0"
   },
   "dependencies": {
-    "promise-readable": "^4.1.0",
-    "promise-writable": "^4.0.0"
+    "promise-readable": "^4.2.0",
+    "promise-writable": "^4.1.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.6",
     "@types/node": "^12.0.0",
     "@types/simple-websocket": "^7.0.1",
     "chai": "^4.2.0",
-    "chai-as-promised": "^7.1.1",
+    "coveralls": "^3.0.3",
+    "eslint": "^5.16.0",
+    "eslint-config-prettier": "^4.2.0",
+    "eslint-plugin-import": "^2.17.2",
+    "eslint-plugin-node": "^9.0.1",
     "markdownlint-cli": "^0.15.0",
+    "mocha": "^6.1.4",
+    "nyc": "^14.1.0",
+    "prettier": "^1.17.0",
+    "shx": "^0.3.2",
     "simple-websocket": "^7.2.0",
-    "snazzy": "^8.0.0",
-    "standard": "^12.0.1",
+    "source-map-support": "^0.5.12",
     "tap": "^13.1.6",
     "tap-given": "^0.6.0",
+    "ts-node": "^8.1.0",
     "tslint": "^5.16.0",
-    "tslint-config-standard": "^8.0.1",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "^3.4.5",
     "websocket-stream": "^5.5.0"
   },
   "scripts": {
-    "pretest": "standard --verbose | snazzy && tsc --noEmit --pretty && tslint -t stylish -p . && markdownlint *.md",
-    "test": "tap test/*.js",
-    "test:coverage": "npm test -- --coverage",
-    "test:onchange:lcovonly": "npm run -s test-coverage -- -R min --coverage-report lcovonly; onchange '**/*.js' -- npm run -s test-coverage -- -R min --coverage-report lcovonly"
-  },
-  "standard": {
-    "globals": [
-      "After",
-      "And",
-      "Feature",
-      "Given",
-      "Scenario",
-      "Then",
-      "When"
-    ]
+    "build": "npm run compile",
+    "compile": "tsc --pretty",
+    "clean": "shx rm -rf lib",
+    "postpublish": "git tag v$npm_package_version -a -m \"Release v$npm_package_version\" && git push --tags",
+    "prepublishOnly": "npm run build",
+    "pretest": "npm run build && tsc --pretty -p examples && tsc --pretty -p test && eslint . && tslint -t stylish -p . && tslint -t stylish -p examples && tslint -t stylish -p test && prettier --ignore-path .gitignore --list-different '**/*.js' '**/*.json' '**/*.ts' '**/*.yml' && markdownlint \"*.md\"",
+    "test": "npm run test:spec",
+    "test:spec": "npm run ts-mocha -- \"test/*.ts\"",
+    "test:coverage": "nyc --reporter json npm run test:spec && nyc report",
+    "ts-mocha": "mocha --use_strict --throw-deprecation --require source-map-support/register --require ts-node/register --timeout 90000"
   },
   "nyc": {
-    "exclude": []
+    "extension": [
+      ".ts"
+    ],
+    "exclude": [
+      ".*.js",
+      "**/*.d.ts"
+    ]
   }
 }

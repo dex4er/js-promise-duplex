@@ -16,7 +16,7 @@ The module combines
 
 ## Requirements
 
-This module requires Node >= 4.
+This module requires Node >= 6.
 
 ## Installation
 
@@ -38,7 +38,7 @@ _Example:_
 
 ```js
 const net = require('net')
-const PromiseDuplex = require('promise-duplex')
+const {PromiseDuplex} = require('promise-duplex')
 
 const stream = new net.Socket()
 
@@ -159,6 +159,6 @@ This method calls destroy method on stream and cleans up all own handlers.
 
 ## License
 
-Copyright (c) 2017-2018 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2019 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

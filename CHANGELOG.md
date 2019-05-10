@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0.0 2019-05-10
+
+* Rewritten in Typescript.
+* Dropped support for Node < 6.
+
 ## v3.0.3 2018-03-12
 
 * Use markdownlint.
@@ -26,7 +31,7 @@
 ## v2.0.3 2017-10-17
 
 * Workaround for bug in @types/node. See
-  https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20493
+  <https://github.com/DefinitelyTyped/DefinitelyTyped/pull/20493>
 
 ## v2.0.2 2017-10-10
 

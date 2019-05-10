@@ -1,45 +1,60 @@
-'use strict'
+/// <reference types="node" />
 
-const PromiseReadable = require('promise-readable')
-const PromiseWritable = require('promise-writable')
+import {PromiseReadable} from 'promise-readable'
+import {PromiseWritable} from 'promise-writable'
+import {Duplex} from 'stream'
 
-class PromiseDuplex extends PromiseReadable /* and PromiseWritable */ {
-  constructor (stream) {
+interface DuplexStream extends Duplex {
+  closed?: boolean
+  destroyed?: boolean
+}
+
+export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable<TDuplex> {
+  readonly readable: PromiseReadable<TDuplex>
+  readonly writable: PromiseWritable<TDuplex>
+
+  readonly isPromiseReadable: boolean = true
+  readonly isPromiseWritable: boolean = true
+
+  constructor(readonly stream: TDuplex) {
     super(stream)
     this.readable = new PromiseReadable(stream)
     this.writable = new PromiseWritable(stream)
-    this._isPromiseDuplex = true
   }
 
   // PromiseReadable
-  read (size) {
+  read(size?: number): Promise<string | Buffer | undefined> {
     return this.readable.read(size)
   }
 
-  readAll () {
+  readAll(): Promise<string | Buffer | undefined> {
     return this.readable.readAll()
   }
 
-  setEncoding (encoding) {
+  setEncoding(encoding: string): this {
     this.readable.setEncoding(encoding)
     return this
   }
 
   // PromiseWritable
-  write (chunk, encoding) {
+  write(chunk: string | Buffer, encoding?: string): Promise<number> {
     return this.writable.write(chunk, encoding)
   }
 
-  writeAll (content, chunkSize) {
+  writeAll(content: string | Buffer, chunkSize?: number): Promise<number> {
     return this.writable.writeAll(content, chunkSize)
   }
 
-  end () {
+  end(): Promise<void> {
     return this.writable.end()
   }
 
   // PromiseDuplex
-  once (event) {
+  once(event: 'close' | 'end' | 'error' | 'finish'): Promise<void>
+  once(event: 'open'): Promise<number>
+  once(event: 'pipe' | 'unpipe'): Promise<NodeJS.ReadableStream>
+
+  once(event: string): Promise<void | number | NodeJS.ReadableStream> {
     const stream = this.stream
 
     return new Promise((resolve, reject) => {
@@ -71,32 +86,41 @@ class PromiseDuplex extends PromiseReadable /* and PromiseWritable */ {
         }
       }
 
-      const eventHandler = event !== 'end' && event !== 'finish' && event !== 'error' ? argument => {
-        removeListeners()
-        resolve(argument)
-      } : undefined
+      const eventHandler =
+        event !== 'end' && event !== 'finish' && event !== 'error'
+          ? (argument: any) => {
+              removeListeners()
+              resolve(argument)
+            }
+          : undefined
 
       const closeHandler = () => {
         removeListeners()
         resolve()
       }
 
-      const endHandler = event !== 'close' ? () => {
-        removeListeners()
-        resolve()
-      } : undefined
+      const endHandler =
+        event !== 'close'
+          ? () => {
+              removeListeners()
+              resolve()
+            }
+          : undefined
 
-      const errorHandler = (err) => {
+      const errorHandler = (err: Error) => {
         delete this.readable._errored
         delete this.writable._errored
         removeListeners()
         reject(err)
       }
 
-      const finishHandler = event !== 'close' ? () => {
-        removeListeners()
-        resolve()
-      } : undefined
+      const finishHandler =
+        event !== 'close'
+          ? () => {
+              removeListeners()
+              resolve()
+            }
+          : undefined
 
       const removeListeners = () => {
         if (eventHandler) {
@@ -126,19 +150,16 @@ class PromiseDuplex extends PromiseReadable /* and PromiseWritable */ {
     })
   }
 
-  destroy () {
+  destroy(): void {
     if (this.readable) {
       this.readable.destroy()
-      delete this.readable
+      // delete this.readable
     }
     if (this.writable) {
       this.writable.destroy()
-      delete this.writable
+      // delete this.writable
     }
   }
 }
 
-PromiseDuplex.PromiseDuplex = PromiseDuplex
-PromiseDuplex.default = PromiseDuplex
-
-module.exports = PromiseDuplex
+export default PromiseDuplex
