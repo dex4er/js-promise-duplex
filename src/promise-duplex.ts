@@ -153,11 +153,9 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
   destroy(): void {
     if (this.readable) {
       this.readable.destroy()
-      // delete this.readable
     }
     if (this.writable) {
       this.writable.destroy()
-      // delete this.writable
     }
   }
 }
