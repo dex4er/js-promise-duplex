@@ -60,13 +60,13 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
     return new Promise((resolve, reject) => {
       if (this.readable._errored) {
         const err = this.readable._errored
-        delete this.readable._errored
+        this.readable._errored = undefined
         return reject(err)
       }
 
       if (this.writable._errored) {
         const err = this.writable._errored
-        delete this.writable._errored
+        this.writable._errored = undefined
         return reject(err)
       }
 
@@ -108,8 +108,8 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
           : undefined
 
       const errorHandler = (err: Error) => {
-        delete this.readable._errored
-        delete this.writable._errored
+        this.readable._errored = undefined
+        this.writable._errored = undefined
         removeListeners()
         reject(err)
       }
