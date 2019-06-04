@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 
-const {PromiseDuplex} = require('../lib/promise-duplex')
+const {PromiseDuplex} = require("../lib/promise-duplex")
 
-const SimpleWebsocket = require('simple-websocket')
+const SimpleWebsocket = require("simple-websocket")
 
 async function main() {
-  const ws = new PromiseDuplex(new SimpleWebsocket({url: 'ws://echo.websocket.org'}))
-  const request = process.argv[2] || 'Hello, world!'
+  const ws = new PromiseDuplex(new SimpleWebsocket({url: "ws://echo.websocket.org"}))
+  const request = process.argv[2] || "Hello, world!"
   await ws.write(request)
   const response = await ws.read()
   console.info(response.toString())

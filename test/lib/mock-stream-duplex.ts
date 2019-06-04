@@ -1,4 +1,4 @@
-import {Duplex} from 'stream'
+import {Duplex} from "stream"
 
 export class MockStreamDuplex extends Duplex {
   readable = true
@@ -35,13 +35,13 @@ export class MockStreamDuplex extends Duplex {
   read(size: number = 1024): any {
     size = size || 1024
     if (this.error) {
-      this.emit('error', this.error)
+      this.emit("error", this.error)
       return null
     }
     if (this.readBuffer.length === 0) {
       if (!this.ended) {
         this.ended = true
-        this.emit('end')
+        this.emit("end")
       }
       return null
     }
@@ -53,12 +53,12 @@ export class MockStreamDuplex extends Duplex {
   write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean
   write(chunk: any, _arg2?: any, _arg3?: any): boolean {
     if (this.closed) {
-      return this.emit('error', new Error('writeAll after end'))
+      return this.emit("error", new Error("writeAll after end"))
     } else {
       this.writeBuffer = Buffer.concat([this.writeBuffer, chunk])
       this.bytesWritten = this.writeBuffer.length
     }
-    return !chunk.toString().startsWith('pause')
+    return !chunk.toString().startsWith("pause")
   }
   end(): void {
     // noop

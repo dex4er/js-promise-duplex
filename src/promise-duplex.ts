@@ -1,8 +1,8 @@
 /// <reference types="node" />
 
-import {PromiseReadable} from 'promise-readable'
-import {PromiseWritable} from 'promise-writable'
-import {Duplex} from 'stream'
+import {PromiseReadable} from "promise-readable"
+import {PromiseWritable} from "promise-writable"
+import {Duplex} from "stream"
 
 interface DuplexStream extends Duplex {
   closed?: boolean
@@ -50,9 +50,9 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
   }
 
   // PromiseDuplex
-  once(event: 'close' | 'end' | 'error' | 'finish'): Promise<void>
-  once(event: 'open'): Promise<number>
-  once(event: 'pipe' | 'unpipe'): Promise<NodeJS.ReadableStream>
+  once(event: "close" | "end" | "error" | "finish"): Promise<void>
+  once(event: "open"): Promise<number>
+  once(event: "pipe" | "unpipe"): Promise<NodeJS.ReadableStream>
 
   once(event: string): Promise<void | number | NodeJS.ReadableStream> {
     const stream = this.stream
@@ -71,7 +71,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
       }
 
       if (stream.closed) {
-        if (event === 'close') {
+        if (event === "close") {
           return resolve()
         } else {
           return reject(new Error(`once ${event} after close`))
@@ -79,7 +79,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
       }
 
       if (stream.destroyed) {
-        if (event === 'close' || event === 'end' || event === 'finish') {
+        if (event === "close" || event === "end" || event === "finish") {
           return resolve()
         } else {
           return reject(new Error(`once ${event} after destroy`))
@@ -87,7 +87,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
       }
 
       const eventHandler =
-        event !== 'end' && event !== 'finish' && event !== 'error'
+        event !== "end" && event !== "finish" && event !== "error"
           ? (argument: any) => {
               removeListeners()
               resolve(argument)
@@ -100,7 +100,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
       }
 
       const endHandler =
-        event !== 'close'
+        event !== "close"
           ? () => {
               removeListeners()
               resolve()
@@ -115,7 +115,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
       }
 
       const finishHandler =
-        event !== 'close'
+        event !== "close"
           ? () => {
               removeListeners()
               resolve()
@@ -126,27 +126,27 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
         if (eventHandler) {
           stream.removeListener(event, eventHandler)
         }
-        stream.removeListener('close', closeHandler)
+        stream.removeListener("close", closeHandler)
         if (endHandler) {
-          stream.removeListener('end', endHandler)
+          stream.removeListener("end", endHandler)
         }
-        stream.removeListener('error', errorHandler)
+        stream.removeListener("error", errorHandler)
         if (finishHandler) {
-          stream.removeListener('finish', finishHandler)
+          stream.removeListener("finish", finishHandler)
         }
       }
 
       if (eventHandler) {
         stream.on(event, eventHandler)
       }
-      stream.on('close', closeHandler)
+      stream.on("close", closeHandler)
       if (endHandler) {
-        stream.on('end', endHandler)
+        stream.on("end", endHandler)
       }
       if (finishHandler) {
-        stream.on('finish', finishHandler)
+        stream.on("finish", finishHandler)
       }
-      stream.on('error', errorHandler)
+      stream.on("error", errorHandler)
     })
   }
 

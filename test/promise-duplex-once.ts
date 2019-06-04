@@ -1,23 +1,23 @@
-import {expect} from 'chai'
+import {expect} from "chai"
 
-import {And, Feature, Given, Scenario, Then, When} from './lib/steps'
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
-import {MockStreamDuplex} from './lib/mock-stream-duplex'
+import {MockStreamDuplex} from "./lib/mock-stream-duplex"
 
-import {PromiseDuplex} from '../src/promise-duplex'
+import {PromiseDuplex} from "../src/promise-duplex"
 
-Feature('Test promise-duplex module for once method', () => {
-  for (const event of ['open', 'close', 'pipe', 'unpipe']) {
+Feature("Test promise-duplex module for once method", () => {
+  for (const event of ["open", "close", "pipe", "unpipe"]) {
     Scenario(`Wait for "${event}" event from stream`, () => {
       let fulfilled = false
       let promiseDuplex: PromiseDuplex<MockStreamDuplex>
       let stream: MockStreamDuplex
 
-      Given('Duplex object', () => {
+      Given("Duplex object", () => {
         stream = new MockStreamDuplex()
       })
 
-      And('PromiseDuplex object', () => {
+      And("PromiseDuplex object", () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
@@ -31,7 +31,7 @@ Feature('Test promise-duplex module for once method', () => {
         stream.emit(event)
       })
 
-      Then('promise is fulfilled', () => {
+      Then("promise is fulfilled", () => {
         return expect(fulfilled).to.be.true
       })
     })
@@ -42,15 +42,15 @@ Feature('Test promise-duplex module for once method', () => {
       let promiseDuplex: PromiseDuplex<MockStreamDuplex>
       let stream: MockStreamDuplex
 
-      Given('Duplex object', () => {
+      Given("Duplex object", () => {
         stream = new MockStreamDuplex()
       })
 
-      And('PromiseDuplex object', () => {
+      And("PromiseDuplex object", () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
-      When('stream is closed', () => {
+      When("stream is closed", () => {
         stream.close()
       })
 
@@ -65,15 +65,15 @@ Feature('Test promise-duplex module for once method', () => {
           })
       })
 
-      if (event === 'close') {
-        Then('promise is fulfilled', () => {
+      if (event === "close") {
+        Then("promise is fulfilled", () => {
           return expect(fulfilled).to.be.true
         })
       } else {
-        Then('promise is rejected', () => {
+        Then("promise is rejected", () => {
           return expect(error)
-            .to.be.an('error')
-            .with.property('message', `once ${event} after close`)
+            .to.be.an("error")
+            .with.property("message", `once ${event} after close`)
         })
       }
     })
@@ -83,11 +83,11 @@ Feature('Test promise-duplex module for once method', () => {
       let promiseDuplex: PromiseDuplex<MockStreamDuplex>
       let stream: MockStreamDuplex
 
-      Given('Duplex object', () => {
+      Given("Duplex object", () => {
         stream = new MockStreamDuplex()
       })
 
-      And('PromiseDuplex object', () => {
+      And("PromiseDuplex object", () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
@@ -97,21 +97,21 @@ Feature('Test promise-duplex module for once method', () => {
         })
       })
 
-      And('error event is emitted', () => {
-        stream.emit('error', new Error('boom'))
+      And("error event is emitted", () => {
+        stream.emit("error", new Error("boom"))
       })
 
-      Then('promise is rejected', () => {
+      Then("promise is rejected", () => {
         return expect(error)
-          .to.be.an('error')
-          .with.property('message', 'boom')
+          .to.be.an("error")
+          .with.property("message", "boom")
       })
 
-      And('PromiseDuplex object can be destroyed', () => {
+      And("PromiseDuplex object can be destroyed", () => {
         promiseDuplex.destroy()
       })
 
-      And('PromiseDuplex object can be destroyed', () => {
+      And("PromiseDuplex object can be destroyed", () => {
         promiseDuplex.destroy()
       })
     })
@@ -121,16 +121,16 @@ Feature('Test promise-duplex module for once method', () => {
       let promiseDuplex: PromiseDuplex<MockStreamDuplex>
       let stream: MockStreamDuplex
 
-      Given('Duplex object', () => {
+      Given("Duplex object", () => {
         stream = new MockStreamDuplex()
       })
 
-      And('PromiseDuplex object', () => {
+      And("PromiseDuplex object", () => {
         promiseDuplex = new PromiseDuplex(stream)
       })
 
-      And('error event is emitted', () => {
-        stream.emit('error', new Error('boom'))
+      And("error event is emitted", () => {
+        stream.emit("error", new Error("boom"))
       })
 
       When(`I wait for "${event}" event`, () => {
@@ -139,10 +139,10 @@ Feature('Test promise-duplex module for once method', () => {
         })
       })
 
-      Then('promise is rejected', () => {
+      Then("promise is rejected", () => {
         return expect(error)
-          .to.be.an('error')
-          .with.property('message', 'boom')
+          .to.be.an("error")
+          .with.property("message", "boom")
       })
     })
   }
