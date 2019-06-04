@@ -1,4 +1,7 @@
-import {expect} from "chai"
+import chai, {expect} from "chai"
+
+import dirtyChai from "dirty-chai"
+chai.use(dirtyChai)
 
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
@@ -32,7 +35,7 @@ Feature("Test promise-duplex module for once method", () => {
       })
 
       Then("promise is fulfilled", () => {
-        return expect(fulfilled).to.be.true
+        expect(fulfilled).to.be.true()
       })
     })
 
@@ -67,11 +70,11 @@ Feature("Test promise-duplex module for once method", () => {
 
       if (event === "close") {
         Then("promise is fulfilled", () => {
-          return expect(fulfilled).to.be.true
+          expect(fulfilled).to.be.true()
         })
       } else {
         Then("promise is rejected", () => {
-          return expect(error)
+          expect(error)
             .to.be.an("error")
             .with.property("message", `once ${event} after close`)
         })
@@ -102,7 +105,7 @@ Feature("Test promise-duplex module for once method", () => {
       })
 
       Then("promise is rejected", () => {
-        return expect(error)
+        expect(error)
           .to.be.an("error")
           .with.property("message", "boom")
       })
@@ -140,7 +143,7 @@ Feature("Test promise-duplex module for once method", () => {
       })
 
       Then("promise is rejected", () => {
-        return expect(error)
+        expect(error)
           .to.be.an("error")
           .with.property("message", "boom")
       })

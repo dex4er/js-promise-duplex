@@ -1,4 +1,7 @@
-import {expect} from "chai"
+import chai, {expect} from "chai"
+
+import dirtyChai from "dirty-chai"
+chai.use(dirtyChai)
 
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
@@ -39,7 +42,7 @@ Feature('Test promise-duplex module for once("end") method', () => {
     })
 
     Then("promise is fulfilled", () => {
-      return expect(ended).to.be.true
+      expect(ended).to.be.true()
     })
   })
 })

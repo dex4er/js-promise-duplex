@@ -43,7 +43,7 @@ Feature("Test promise-duplex module for readAll method", () => {
     })
 
     Then("promise resolves to all chunks in one buffer", () => {
-      return expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
+      expect(content).to.deep.equal(Buffer.from("chunk1chunk2"))
     })
   })
 })

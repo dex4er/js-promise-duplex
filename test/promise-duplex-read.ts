@@ -29,7 +29,7 @@ Feature("Test promise-duplex module for read method", () => {
     })
 
     Then("promise resolves to chunk", () => {
-      return expect(chunk).to.deep.equal(Buffer.from("chunk1"))
+      expect(chunk).to.deep.equal(Buffer.from("chunk1"))
     })
 
     And("PromiseDuplex object can be destroyed", () => {
@@ -67,7 +67,7 @@ Feature("Test promise-duplex module for read method", () => {
     })
 
     Then("promise resolves to chunk as string", () => {
-      return expect(chunk).to.deep.equal("chunk1")
+      expect(chunk).to.deep.equal("chunk1")
     })
 
     And("stream can be destroyed", () => {
