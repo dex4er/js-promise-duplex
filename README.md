@@ -28,6 +28,18 @@ npm install promise-duplex
 
 ## Usage
 
+```js
+const {PromiseDuplex} = require("promise-duplex")
+```
+
+_Typescript_:
+
+```ts
+import PromiseDuplex from "promise-duplex"
+// or
+import {PromiseDuplex} from "promise-duplex"
+```
+
 ### constructor
 
 ```js
@@ -49,7 +61,7 @@ const promiseDuplex = new PromiseDuplex(stream)
 
 _Typescript:_
 
-```js
+```ts
 import net from "net"
 import PromiseDuplex from "promise-duplex"
 
