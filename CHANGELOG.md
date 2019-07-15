@@ -1,5 +1,9 @@
 # Changelog
 
+## v5.0.0 2019-07-15
+
+- Uses promise-readable and promise-writable v5.
+
 ## v4.0.3 2019-06-04
 
 - Minor tweaks in README.
