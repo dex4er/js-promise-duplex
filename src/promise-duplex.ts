@@ -1,5 +1,7 @@
 /// <reference types="node" />
 
+import "core-js/modules/es.symbol.async-iterator"
+
 import {PromiseReadable} from "promise-readable"
 import {PromiseWritable} from "promise-writable"
 import {Duplex} from "stream"
@@ -9,7 +11,8 @@ interface DuplexStream extends Duplex {
   destroyed?: boolean
 }
 
-export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable<TDuplex> {
+export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable<TDuplex>
+  implements AsyncIterable<Buffer | string> {
   readonly readable: PromiseReadable<TDuplex>
   readonly writable: PromiseWritable<TDuplex>
 
@@ -34,6 +37,14 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
   setEncoding(encoding: string): this {
     this.readable.setEncoding(encoding)
     return this
+  }
+
+  iterate(size?: number): AsyncIterableIterator<Buffer | string> {
+    return this.readable.iterate(size)
+  }
+
+  [Symbol.asyncIterator](): AsyncIterableIterator<Buffer | string> {
+    return this.readable[Symbol.asyncIterator]()
   }
 
   // PromiseWritable
