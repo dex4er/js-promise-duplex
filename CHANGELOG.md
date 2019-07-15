@@ -65,7 +65,7 @@
 
 - Use native `Promise` rather than `any-event`.
 
-## v1.2.1 2017-10-06
+## v1.1.2 2017-10-06
 
 - Typescript: reference additional modules in our typings file.
 
