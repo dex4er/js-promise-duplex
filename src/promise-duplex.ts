@@ -8,7 +8,6 @@ import {Duplex} from "stream"
 
 interface DuplexStream extends Duplex {
   closed?: boolean
-  destroyed?: boolean
 }
 
 export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable<TDuplex>
