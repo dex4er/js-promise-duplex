@@ -107,7 +107,8 @@ for details.
 ### iterate
 
 ```js
-for await (const chunk of promiseDuplex.iterate(chunkSize)) {}
+for await (const chunk of promiseDuplex.iterate(chunkSize)) {
+}
 ```
 
 Check
@@ -117,7 +118,8 @@ for details.
 ### Symbol.asyncIterator
 
 ```js
-for await (const chunk of promiseDuplex.iterate(chunkSize)) {}
+for await (const chunk of promiseDuplex.iterate(chunkSize)) {
+}
 ```
 
 Check
