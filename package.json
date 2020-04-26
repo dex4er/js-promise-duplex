@@ -46,7 +46,7 @@
     "mocha": "^6.2.2",
     "mocha-steps": "^1.3.0",
     "nyc": "^15.0.0",
-    "prettier": "^1.19.1",
+    "prettier": "^2.0.5",
     "shx": "^0.3.2",
     "simple-websocket": "^8.1.1",
     "source-map-support": "^0.5.16",
