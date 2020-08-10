@@ -1,10 +1,10 @@
 import {expect} from "chai"
 
+import {PromiseDuplex} from "../src/promise-duplex"
+
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import {MockStreamDuplex} from "./lib/mock-stream-duplex"
-
-import {PromiseDuplex} from "../src/promise-duplex"
 
 Feature("Test promise-duplex module for write method", () => {
   Scenario("Write chunks to stream which does not pause", () => {

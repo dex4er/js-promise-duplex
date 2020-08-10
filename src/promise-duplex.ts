@@ -2,9 +2,9 @@
 
 import "core-js/modules/es.symbol.async-iterator"
 
+import {Duplex} from "stream"
 import {PromiseReadable} from "promise-readable"
 import {PromiseWritable} from "promise-writable"
-import {Duplex} from "stream"
 
 interface DuplexStream extends Duplex {
   closed?: boolean

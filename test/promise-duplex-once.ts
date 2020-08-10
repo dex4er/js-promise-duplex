@@ -3,11 +3,11 @@ import chai, {expect} from "chai"
 import dirtyChai from "dirty-chai"
 chai.use(dirtyChai)
 
+import {PromiseDuplex} from "../src/promise-duplex"
+
 import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
 
 import {MockStreamDuplex} from "./lib/mock-stream-duplex"
-
-import {PromiseDuplex} from "../src/promise-duplex"
 
 Feature("Test promise-duplex module for once method", () => {
   for (const event of ["open", "close", "pipe", "unpipe"]) {

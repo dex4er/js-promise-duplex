@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const {PromiseDuplex} = require("../lib/promise-duplex")
-
 const SimpleWebsocket = require("simple-websocket")
+
+const {PromiseDuplex} = require("../lib/promise-duplex")
 
 async function main() {
   const ws = new PromiseDuplex(new SimpleWebsocket({url: "ws://echo.websocket.org"}))

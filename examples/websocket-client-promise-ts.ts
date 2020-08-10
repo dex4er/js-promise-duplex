@@ -1,8 +1,8 @@
 #!/usr/bin/env ts-node
 
-import PromiseDuplex from "../src/promise-duplex"
-
 import SimpleWebsocket from "simple-websocket"
+
+import PromiseDuplex from "../src/promise-duplex"
 
 async function main(): Promise<void> {
   const ws = new PromiseDuplex(new SimpleWebsocket({url: "ws://echo.websocket.org"}))
