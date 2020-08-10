@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "promise-readable": "^5.0.4",
+    "promise-readable": "^6.0.0",
     "promise-writable": "^5.0.4"
   },
   "devDependencies": {
