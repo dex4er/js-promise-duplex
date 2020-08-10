@@ -1,6 +1,6 @@
 {
   "name": "promise-duplex",
-  "version": "5.0.3",
+  "version": "6.0.0",
   "description": "Return promise for duplex stream",
   "main": "lib/promise-duplex.js",
   "typings": "lib/promise-duplex.d.ts",
