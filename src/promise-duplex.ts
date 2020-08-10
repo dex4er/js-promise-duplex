@@ -33,7 +33,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
     return this.readable.readAll()
   }
 
-  setEncoding(encoding: string): this {
+  setEncoding(encoding: BufferEncoding): this {
     this.readable.setEncoding(encoding)
     return this
   }
@@ -47,7 +47,7 @@ export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable
   }
 
   // PromiseWritable
-  write(chunk: string | Buffer, encoding?: string): Promise<number> {
+  write(chunk: string | Buffer, encoding?: BufferEncoding): Promise<number> {
     return this.writable.write(chunk, encoding)
   }
 

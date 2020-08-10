@@ -15,7 +15,7 @@ export class MockStreamDuplex extends Duplex {
   readBuffer = Buffer.alloc(0)
   writeBuffer = Buffer.alloc(0)
 
-  private encoding?: string
+  private encoding?: BufferEncoding
   private error?: Error
 
   close(): void {
@@ -50,7 +50,7 @@ export class MockStreamDuplex extends Duplex {
     return this.encoding ? chunk.toString(this.encoding) : chunk
   }
   write(chunk: any, cb?: (error: Error | null | undefined) => void): boolean
-  write(chunk: any, encoding: string, cb?: (error: Error | null | undefined) => void): boolean
+  write(chunk: any, encoding: BufferEncoding, cb?: (error: Error | null | undefined) => void): boolean
   write(chunk: any, _arg2?: any, _arg3?: any): boolean {
     if (this.closed) {
       return this.emit("error", new Error("writeAll after end"))
@@ -69,7 +69,7 @@ export class MockStreamDuplex extends Duplex {
   uncork(): void {
     // noop
   }
-  setEncoding(encoding: string): this {
+  setEncoding(encoding: BufferEncoding): this {
     this.encoding = encoding
     return this
   }
