@@ -10,7 +10,8 @@ interface DuplexStream extends Duplex {
   closed?: boolean
 }
 
-export class PromiseDuplex<TDuplex extends DuplexStream> extends PromiseReadable<TDuplex>
+export class PromiseDuplex<TDuplex extends DuplexStream>
+  extends PromiseReadable<TDuplex>
   implements AsyncIterable<Buffer | string> {
   readonly readable: PromiseReadable<TDuplex>
   readonly writable: PromiseWritable<TDuplex>
