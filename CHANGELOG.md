@@ -1,5 +1,14 @@
 # Changelog
 
+## v7.0.0 2024-06-19
+- Supports Node >= 20. Fixes #61.
+- Uses @types/node v20.
+- Updated dependencies
+
+_Breaking change:_
+
+- PromiseDuplex.stream.closed is no longer optional
+
 ## v6.0.0 2020-08-10
 
 - Requires Node >= 10.
