@@ -3,7 +3,6 @@ env:
   node: true
 extends:
   - prettier
-  - prettier/@typescript-eslint
 ignorePatterns:
   - coverage/**
   - lib/**
@@ -102,7 +101,6 @@ rules:
   import/order: error
   jsdoc/check-alignment: error
   jsdoc/check-indentation: error
-  jsdoc/newline-after-description: error
   max-classes-per-file:
     - error
     - 1
