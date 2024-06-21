@@ -5,6 +5,7 @@
 - Converted to ESM module.
 - Requires Node >= 16.
 - Uses "node:" prefix for Node.js modules.
+- Fixes TypeScript error for `closed` property; closes #61.
 
 ## v6.0.0 2020-08-10
 
