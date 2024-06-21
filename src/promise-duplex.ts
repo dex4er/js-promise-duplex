@@ -160,13 +160,15 @@ export class PromiseDuplex<TDuplex extends DuplexStream>
     })
   }
 
-  destroy(): void {
+  destroy(): this {
     if (this.readable) {
       this.readable.destroy()
     }
     if (this.writable) {
       this.writable.destroy()
     }
+
+    return this
   }
 }
 
