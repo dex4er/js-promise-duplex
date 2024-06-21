@@ -1,6 +1,6 @@
 {
   "name": "promise-duplex",
-  "version": "7.0.0",
+  "version": "8.0.0",
   "description": "Return promise for duplex stream",
   "type": "module",
   "exports": {

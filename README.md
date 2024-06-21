@@ -166,10 +166,12 @@ for details.
 ### destroy
 
 ```js
-promiseDuplex.destroy()
+promiseDuplex = promiseDuplex.destroy()
 ```
 
-This method calls destroy method on stream and cleans up all own handlers.
+This method calls `destroy` method on stream and cleans up all own handlers.
+
+The method returns this object.
 
 ## See also
 
