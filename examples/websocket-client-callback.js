@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const SimpleWebsocket = require("simple-websocket")
+import SimpleWebsocket from "simple-websocket"
 
-const ws = new SimpleWebsocket({url: "ws://echo.websocket.org"})
+const ws = new SimpleWebsocket({url: "wss://echo.websocket.org"})
 const request = process.argv[2] || "Hello, world!"
 ws.on("data", data => {
   console.info(data.toString())
@@ -10,6 +10,10 @@ ws.on("data", data => {
 })
 ws.on("end", () => {
   ws.destroy()
+})
+ws.on("error", e => {
+  ws.destroy()
+  console.error(e)
 })
 ws.write(request, err => {
   if (err) throw err

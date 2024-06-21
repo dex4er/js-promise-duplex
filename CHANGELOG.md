@@ -1,5 +1,11 @@
 # Changelog
 
+## v7.0.0 2024-06-21
+
+- Converted to ESM module.
+- Requires Node >= 16.
+- Uses "node:" prefix for Node.js modules.
+
 ## v6.0.0 2020-08-10
 
 - Requires Node >= 10.
@@ -103,7 +109,7 @@
 
 - Exports also as a class and namespace and the default.
 - Typings for Typescript.
-- Based on promise-readable@1.x.x and promise-writable@1.x.x
+- Based on promise-readable@1 and promise-writable@1
 
 _Breaking change:_
 

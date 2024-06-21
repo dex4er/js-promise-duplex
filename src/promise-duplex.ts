@@ -1,18 +1,17 @@
 /// <reference types="node" />
 
-import "core-js/modules/es.symbol.async-iterator"
-
-import {Duplex} from "stream"
+import {Duplex} from "node:stream"
 import {PromiseReadable} from "promise-readable"
 import {PromiseWritable} from "promise-writable"
 
 interface DuplexStream extends Duplex {
-  closed?: boolean
+  closed: boolean
 }
 
 export class PromiseDuplex<TDuplex extends DuplexStream>
   extends PromiseReadable<TDuplex>
-  implements AsyncIterable<Buffer | string> {
+  implements AsyncIterable<Buffer | string>
+{
   readonly readable: PromiseReadable<TDuplex>
   readonly writable: PromiseWritable<TDuplex>
 

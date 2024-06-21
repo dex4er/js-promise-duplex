@@ -1,10 +1,10 @@
 import {expect} from "chai"
 
-import {PromiseDuplex} from "../src/promise-duplex"
+import {PromiseDuplex} from "../src/promise-duplex.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {MockStreamDuplex} from "./lib/mock-stream-duplex"
+import {MockStreamDuplex} from "./lib/mock-stream-duplex.js"
 
 Feature("Test promise-duplex module for iterate method", () => {
   Scenario("Read chunks from stream", () => {
@@ -34,7 +34,7 @@ Feature("Test promise-duplex module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns chunk", () => {
@@ -81,7 +81,7 @@ Feature("Test promise-duplex module for iterate method", () => {
     })
 
     Then("iterator is not done", () => {
-      expect(result.done).to.be.false()
+      expect(result.done).to.be.false
     })
 
     And("iterator returns chunk", () => {

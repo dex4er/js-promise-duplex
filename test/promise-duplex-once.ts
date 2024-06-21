@@ -1,13 +1,10 @@
-import chai, {expect} from "chai"
+import {expect} from "chai"
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {PromiseDuplex} from "../src/promise-duplex.js"
 
-import {PromiseDuplex} from "../src/promise-duplex"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import {MockStreamDuplex} from "./lib/mock-stream-duplex"
+import {MockStreamDuplex} from "./lib/mock-stream-duplex.js"
 
 Feature("Test promise-duplex module for once method", () => {
   for (const event of ["open", "close", "pipe", "unpipe"]) {
@@ -35,7 +32,7 @@ Feature("Test promise-duplex module for once method", () => {
       })
 
       Then("promise is fulfilled", () => {
-        expect(fulfilled).to.be.true()
+        expect(fulfilled).to.be.true
       })
     })
 
@@ -70,7 +67,7 @@ Feature("Test promise-duplex module for once method", () => {
 
       if (event === "close") {
         Then("promise is fulfilled", () => {
-          expect(fulfilled).to.be.true()
+          expect(fulfilled).to.be.true
         })
       } else {
         Then("promise is rejected", () => {

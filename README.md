@@ -2,7 +2,11 @@
 
 <!-- markdownlint-disable MD013 -->
 
-[![Build Status](https://secure.travis-ci.org/dex4er/js-promise-duplex.svg)](http://travis-ci.org/dex4er/js-promise-duplex) [![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-duplex/badge.svg)](https://coveralls.io/github/dex4er/js-promise-duplex) [![npm](https://img.shields.io/npm/v/promise-duplex.svg)](https://www.npmjs.com/package/promise-duplex)
+[![GitHub](https://img.shields.io/github/v/release/dex4er/js-promise-duplex?display_name=tag&sort=semver)](https://github.com/dex4er/js-promise-duplex)
+[![CI](https://github.com/dex4er/js-promise-duplex/actions/workflows/ci.yaml/badge.svg)](https://github.com/dex4er/js-promise-duplex/actions/workflows/ci.yaml)
+[![Trunk Check](https://github.com/dex4er/js-promise-duplex/actions/workflows/trunk.yaml/badge.svg)](https://github.com/dex4er/js-promise-duplex/actions/workflows/trunk.yaml)
+[![Coverage Status](https://coveralls.io/repos/github/dex4er/js-promise-duplex/badge.svg)](https://coveralls.io/github/dex4er/js-promise-duplex)
+[![npm](https://img.shields.io/npm/v/promise-duplex.svg)](https://www.npmjs.com/package/promise-duplex)
 
 <!-- markdownlint-enable MD013 -->
 
@@ -14,11 +18,11 @@ object fulfilled when stream's events occurred.
 
 The module combines
 [`promise-readable`](https://www.npmjs.com/package/promise-readable) and
-[`promise-writable`](https://www.npmjs.com/package/promise-writable) in one.
+[`promise-`](https://www.npmjs.com/package/promise-) in one.
 
 ## Requirements
 
-This module requires Node >= 6.
+This module requires Node >= 16.
 
 ## Installation
 
@@ -29,15 +33,7 @@ npm install promise-duplex
 ## Usage
 
 ```js
-const {PromiseDuplex} = require("promise-duplex")
-```
-
-_Typescript_:
-
-```ts
 import PromiseDuplex from "promise-duplex"
-// or
-import {PromiseDuplex} from "promise-duplex"
 ```
 
 ### constructor
@@ -51,18 +47,7 @@ const promiseDuplex = new PromiseDuplex(stream)
 _Example:_
 
 ```js
-const net = require("net")
-const {PromiseDuplex} = require("promise-duplex")
-
-const stream = new net.Socket()
-
-const promiseDuplex = new PromiseDuplex(stream)
-```
-
-_Typescript:_
-
-```ts
-import net from "net"
+import net from "node:net"
 import PromiseDuplex from "promise-duplex"
 
 const stream = new net.Socket()
@@ -143,7 +128,7 @@ await promiseDuplex.write(chunk)
 ```
 
 Check
-[`PromiseWritable.write`](https://www.npmjs.com/package/promise-writable#write)
+[`PromiseWritable.write`](https://www.npmjs.com/package/promise-#write)
 for details.
 
 ### writeAll
@@ -153,7 +138,7 @@ await promiseDuplex.writeAll(content, chunkSize)
 ```
 
 Check
-[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-writable#writeall)
+[`PromiseWritable.writeAll`](https://www.npmjs.com/package/promise-#writeall)
 for details.
 
 ### end
@@ -163,7 +148,7 @@ await promiseDuplex.end()
 ```
 
 Check
-[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#end)
+[`PromiseWritable.once`](https://www.npmjs.com/package/promise-#end)
 for details.
 
 ### once
@@ -175,7 +160,7 @@ const result = await promiseDuplex.once(event)
 Check
 [`PromiseReadable.once`](https://www.npmjs.com/package/promise-readable#once)
 and
-[`PromiseWritable.once`](https://www.npmjs.com/package/promise-writable#once)
+[`PromiseWritable.once`](https://www.npmjs.com/package/promise-#once)
 for details.
 
 ### destroy
@@ -189,12 +174,12 @@ This method calls destroy method on stream and cleans up all own handlers.
 ## See also
 
 [`PromiseReadable`](https://www.npmjs.com/package/promise-readable),
-[`PromiseWritable`](https://www.npmjs.com/package/promise-writable),
+[`PromiseWritable`](https://www.npmjs.com/package/promise-),
 [`PromiseSocket`](https://www.npmjs.com/package/promise-socket),
 [`PromisePiping`](https://www.npmjs.com/package/promise-piping).
 
 ## License
 
-Copyright (c) 2017-2019 Piotr Roszatycki <piotr.roszatycki@gmail.com>
+Copyright (c) 2017-2024 Piotr Roszatycki <piotr.roszatycki@gmail.com>
 
 [MIT](https://opensource.org/licenses/MIT)

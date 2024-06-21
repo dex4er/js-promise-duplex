@@ -1,13 +1,10 @@
-import chai, {expect} from "chai"
+import {expect} from "chai"
 
-import dirtyChai from "dirty-chai"
-chai.use(dirtyChai)
+import {PromiseDuplex} from "../src/promise-duplex.js"
 
-import {PromiseDuplex} from "../src/promise-duplex"
+import {And, Feature, Given, Scenario, Then, When} from "./lib/steps.js"
 
-import {And, Feature, Given, Scenario, Then, When} from "./lib/steps"
-
-import {MockStreamDuplex} from "./lib/mock-stream-duplex"
+import {MockStreamDuplex} from "./lib/mock-stream-duplex.js"
 
 Feature('Test promise-duplex module for once("end") method', () => {
   Scenario("Wait for end from stream", () => {
@@ -42,7 +39,7 @@ Feature('Test promise-duplex module for once("end") method', () => {
     })
 
     Then("promise is fulfilled", () => {
-      expect(ended).to.be.true()
+      expect(ended).to.be.true
     })
   })
 })

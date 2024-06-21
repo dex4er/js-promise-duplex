@@ -1,10 +1,10 @@
-import {Duplex} from "stream"
+import {Duplex} from "node:stream"
 
 export class MockStreamDuplex extends Duplex {
   readable = true
   writable = true
 
-  closed = false
+  _closed = false
   destroyed = false
 
   ended = false
@@ -18,11 +18,17 @@ export class MockStreamDuplex extends Duplex {
   private encoding?: BufferEncoding
   private error?: Error
 
-  close(): void {
-    this.closed = true
+  // @ts-expect-error in mock class
+  get closed(): boolean {
+    return this._closed
   }
-  destroy(): void {
+
+  close(): void {
+    this._closed = true
+  }
+  destroy(_error?: Error): this {
     this.destroyed = true
+    return this
   }
   pause(): this {
     this.paused = true
@@ -60,8 +66,11 @@ export class MockStreamDuplex extends Duplex {
     }
     return !chunk.toString().startsWith("pause")
   }
-  end(): void {
-    // noop
+  end(cb?: () => void): this
+  end(chunk: any, cb?: () => void): this
+  end(chunk: any, encoding: BufferEncoding, cb?: () => void): this
+  end(): this {
+    return this
   }
   cork(): void {
     // noop

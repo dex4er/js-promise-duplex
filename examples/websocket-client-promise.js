@@ -1,15 +1,21 @@
 #!/usr/bin/env node
 
-const SimpleWebsocket = require("simple-websocket")
+import SimpleWebsocket from "simple-websocket"
 
-const {PromiseDuplex} = require("../lib/promise-duplex")
+import PromiseDuplex from "../lib/promise-duplex.js"
+
+import assert from "node:assert"
 
 async function main() {
-  const ws = new PromiseDuplex(new SimpleWebsocket({url: "ws://echo.websocket.org"}))
+  const ws = new PromiseDuplex(new SimpleWebsocket({url: "wss://echo.websocket.org"}))
   const request = process.argv[2] || "Hello, world!"
   await ws.write(request)
-  const response = await ws.read()
-  console.info(response.toString())
+  const response1 = await ws.read()
+  assert(response1 instanceof Buffer)
+  console.info(response1.toString())
+  const response2 = await ws.read()
+  assert(response2 instanceof Buffer)
+  console.info(response2.toString())
   await ws.end()
   ws.destroy()
 }
