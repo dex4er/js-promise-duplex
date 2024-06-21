@@ -30,7 +30,7 @@
     "node": ">=16.0.0"
   },
   "dependencies": {
-    "promise-readable": "^7.0.5",
+    "promise-readable": "^8.0.1",
     "promise-writable": "^8.0.0"
   },
   "devDependencies": {
